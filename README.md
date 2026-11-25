@@ -4,13 +4,13 @@ WIDS Backend (Wireless Intrusion Detection System) Серверная платф
 
 ## Стек
 
-Python 3.11
-FastAPI
-PostgreSQL 16
-Redis
-SQLAlchemy 2.0 (async)
-Alembic
-Docker Compose
+- Python 3.11
+- FastAPI
+- PostgreSQL 16
+- Redis
+- SQLAlchemy 2.0 (async)
+- Alembic
+- Docker Compose
 
 ## Запустить проект
 
