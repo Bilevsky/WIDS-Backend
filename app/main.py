@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 
+from app.routers import sensors, whitelist
+
 app = FastAPI(title="WIDS Backend")
+
+app.include_router(sensors.router)
+app.include_router(whitelist.router)
 
 
 @app.get("/health")
