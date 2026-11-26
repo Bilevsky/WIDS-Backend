@@ -98,3 +98,31 @@ class WhitelistDeviceRead(BaseModel):
     mac: str
     description: str | None
     created_at: datetime
+
+# Телеметрия
+
+FrameType = Literal["Beacon", "Probe Request", "Deauthentication"]
+
+
+class TelemetryEventIn(BaseModel):
+    src_mac: str
+    dst_mac: str
+    rssi: int = Field(ge=-120, le=0)  # уровень сигнала в dBm
+    ssid: str | None = Field(default=None, max_length=32)
+    channel: int | None = Field(default=None, ge=1, le=196)
+    encryption: Encryption | None = None
+    frame_type: FrameType
+    vendor_ie: dict | None = None
+
+    @field_validator("src_mac", "dst_mac")
+    @classmethod
+    def check_mac(cls, v: str) -> str:
+        return normalize_mac(v)
+
+
+class TelemetryBatch(BaseModel):
+    events: list[TelemetryEventIn] = Field(min_length=1, max_length=500)
+
+
+class TelemetryAccepted(BaseModel):
+    accepted: int

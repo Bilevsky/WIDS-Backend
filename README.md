@@ -14,7 +14,8 @@ WIDS Backend (Wireless Intrusion Detection System) Серверная платф
 
 ## Запустить проект
 
-docker compose up --build
+- Запустить проект: docker compose up --build
+- Запустить эмулятор сенсоров: docker compose exec app python emulator/emulator.py
 
 ## Применить миграцию
 
@@ -37,3 +38,9 @@ docker compose exec app alembic upgrade head
 - /whitelist/aps: легитимные точки доступа (SSID + MAC + тип шифрования).
 - /whitelist/devices: корпоративные устройства (MAC).
 - MAC-адреса автоматически приводятся к формату AA:BB:CC:DD:EE:FF.
+
+Приём телеметрии и эмулятор
+- POST /telemetry/batch: пакетный приём до 500 событий за запрос, валидация, запись в БД одной командой.
+- Сенсор определяется по API-ключу, а не по полю в теле запроса, поэтому подписаться чужим именем нельзя.
+- Rate limiting через Redis: лимит запросов на сенсор в минуту, при превышении ответ 429.
+- Эмулятор сенсоров: три виртуальных сенсора в отдельных потоках, уровень сигнала (RSSI) считается по расстоянию до источника.
