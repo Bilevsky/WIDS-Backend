@@ -12,7 +12,7 @@ WIDS Backend (Wireless Intrusion Detection System) Серверная платф
 - Alembic
 - Docker Compose
 
-## Запустить проект
+## Запуск
 
 - Запустить проект: docker compose up --build
 - Запустить эмулятор сенсоров: docker compose exec app python emulator/emulator.py
