@@ -107,3 +107,14 @@ class IncidentComment(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
+
+class WhitelistDevice(Base):
+    """Белый список корпоративных устройств (по MAC)."""
+    __tablename__ = "whitelist_devices"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    mac: Mapped[str] = mapped_column(String(17), unique=True)
+    description: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
